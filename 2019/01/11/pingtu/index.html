@@ -57,8 +57,10 @@
                 //如果null所在的位置不在第三排,也就是null的索引<=5,这时按键上一定能执行
                 if (index_null + 3 <= 8) {
                     //交换null和null正下方的元素值
-                    this.arr[index_null] = this.arr[index_null + 3];
-                    this.arr[index_null + 3] = null;
+					var temp = this.arr[index_null+3];
+					this.arr[index_null + 3] = null;
+                    this.arr[index_null] = temp;
+                    
                     this.commonMethod();
                 }
             },
@@ -67,8 +69,9 @@
                 var index_null = this.arr.indexOf(null);
                 //如果null所在的位置不在第一排,也就是null的索引>=3,这时按键下一定能执行
                 if (index_null - 3 >= 0) {
-                    this.arr[index_null] = this.arr[index_null - 3];
-                    this.arr[index_null - 3] = null;
+                    var temp = this.arr[index_null-3];
+					this.arr[index_null -3] = null;
+                    this.arr[index_null] = temp;
                     this.commonMethod();
                 }
             },
@@ -77,8 +80,9 @@
                 var index_null = this.arr.indexOf(null);
                 //如果null所在的位置不在第三列,也就是null的索引不为2,5,8,这时按键左一定能执行
                 if (index_null != 2 && index_null != 5 && index_null != 8) {
-                    this.arr[index_null] = this.arr[index_null + 1];
-                    this.arr[index_null + 1] = null;
+                   var temp = this.arr[index_null+1];
+					this.arr[index_null + 1] = null;
+                    this.arr[index_null] = temp;
                     this.commonMethod();
 
                 }
@@ -88,8 +92,9 @@
                 var index_null = this.arr.indexOf(null);
                 //如果null所在的位置不在第一列,也就是null的索引不为0,3,6,这时按键右一定能执行
                 if (index_null != 0 && index_null != 3 && index_null != 6) {
-                    this.arr[index_null] = this.arr[index_null - 1];
-                    this.arr[index_null - 1] = null;
+                    var temp = this.arr[index_null-1];
+					this.arr[index_null -1] = null;
+                    this.arr[index_null] = temp;
                     this.commonMethod();
                 }
             },
