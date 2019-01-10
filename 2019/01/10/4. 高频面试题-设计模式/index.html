@@ -128,7 +128,7 @@
       applicationID: '',
       apiKey: '',
       indexName: '',
-      hits: {"per_page":10},
+      hits: {"per_page":8},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
@@ -149,9 +149,7 @@
 
 
 
-(2) 设计模式的的六大原则及其含义  
-
-开闭原">
+(2) 设计模式的的六大原则及其含义">
 <meta property="og:type" content="article">
 <meta property="og:title" content="高频面试题-设计模式">
 <meta property="og:url" content="http://yoursite.com/2019/01/10/4. 高频面试题-设计模式/index.html">
@@ -165,11 +163,9 @@
 
 
 
-(2) 设计模式的的六大原则及其含义  
-
-开闭原">
+(2) 设计模式的的六大原则及其含义">
 <meta property="og:image" content="https://img-blog.csdn.net/2018030811254564?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWUVDcmF6eQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2019-01-10T12:58:38.949Z">
+<meta property="og:updated_time" content="2019-01-10T15:48:25.053Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高频面试题-设计模式">
 <meta name="twitter:description" content="高频面试题-设计模式(1) 常见的设计模式  
@@ -181,9 +177,7 @@
 
 
 
-(2) 设计模式的的六大原则及其含义  
-
-开闭原">
+(2) 设计模式的的六大原则及其含义">
 <meta name="twitter:image" content="https://img-blog.csdn.net/2018030811254564?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWUVDcmF6eQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
 
@@ -409,7 +403,7 @@
                 
               
 
-              <time title="创建时间：2019-01-10 20:57:13 / 修改时间：20:58:38" itemprop="dateCreated datePublished" datetime="2019-01-10T20:57:13+08:00">2019-01-10</time>
+              <time title="创建时间：2019-01-10 20:57:13 / 修改时间：23:48:25" itemprop="dateCreated datePublished" datetime="2019-01-10T20:57:13+08:00">2019-01-10</time>
             
 
             
@@ -447,7 +441,8 @@
       
 
       
-        <h2 id="高频面试题-设计模式"><a href="#高频面试题-设计模式" class="headerlink" title="高频面试题-设计模式"></a>高频面试题-设计模式</h2><p>(1) 常见的设计模式  </p>
+        <p><meta name="referrer" content="no-referrer"></p>
+<h2 id="高频面试题-设计模式"><a href="#高频面试题-设计模式" class="headerlink" title="高频面试题-设计模式"></a>高频面试题-设计模式</h2><p>(1) 常见的设计模式  </p>
 <ul>
 <li>软件设计模式的分类<ul>
 <li>创建型:创建对象时，不再由我们直接实例化对象,工厂方法、抽象工厂模式、单例模式</li>
@@ -456,7 +451,7 @@
 </ul>
 </li>
 </ul>
-<p>(2) 设计模式的的六大原则及其含义  </p>
+<p>(2) 设计模式的的六大原则及其含义<br><a id="more"></a></p>
 <ul>
 <li>开闭原则（Open Close Principle）<ul>
 <li>开闭原则的意思是：对扩展开放，对修改关闭。</li>
@@ -870,6 +865,80 @@
   
 
   
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function () {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
 
   
 
