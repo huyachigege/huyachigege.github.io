@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="https://fonts.cat.net/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"/>
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="##高频面试题-SpringBoot&amp;amp;SpringCloud(1) 什么是springboot  
+
+用来简化spring应用的初始搭建以及开发过程 使用特定的方式来进行配置（properties或yml文件） 
+创建独立的spring引用程序 main方法运行
+嵌入的Tomcat 无需部署war文件
+简化maven配置
+自动配置spring添加对应功能starter自动化配置
+
+(2)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="驰哥哥教你学Java">
+<meta property="og:url" content="http://yoursite.com/2019/01/10/8. 高频面试题-SpringBoot&SpringCloud/index.html">
+<meta property="og:site_name" content="驰哥哥教你学Java">
+<meta property="og:description" content="##高频面试题-SpringBoot&amp;amp;SpringCloud(1) 什么是springboot  
+
+用来简化spring应用的初始搭建以及开发过程 使用特定的方式来进行配置（properties或yml文件） 
+创建独立的spring引用程序 main方法运行
+嵌入的Tomcat 无需部署war文件
+简化maven配置
+自动配置spring添加对应功能starter自动化配置
+
+(2)">
+<meta property="og:updated_time" content="2018-12-12T00:58:06.213Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="驰哥哥教你学Java">
+<meta name="twitter:description" content="##高频面试题-SpringBoot&amp;amp;SpringCloud(1) 什么是springboot  
+
+用来简化spring应用的初始搭建以及开发过程 使用特定的方式来进行配置（properties或yml文件） 
+创建独立的spring引用程序 main方法运行
+嵌入的Tomcat 无需部署war文件
+简化maven配置
+自动配置spring添加对应功能starter自动化配置
+
+(2)">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/10/8. 高频面试题-SpringBoot&SpringCloud/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | 驰哥哥教你学Java</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">驰哥哥教你学Java</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/8. 高频面试题-SpringBoot&SpringCloud/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YC"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="驰哥哥教你学Java"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-10 20:57:13" itemprop="dateCreated datePublished" datetime="2019-01-10T20:57:13+08:00">2019-01-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-12 08:58:06" itemprop="dateModified" datetime="2018-12-12T08:58:06+08:00">2018-12-12</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##高频面试题-SpringBoot&amp;SpringCloud<br>(1) 什么是springboot  </p>
+<ul>
+<li>用来简化spring应用的初始搭建以及开发过程 使用特定的方式来进行配置（properties或yml文件） </li>
+<li>创建独立的spring引用程序 main方法运行</li>
+<li>嵌入的Tomcat 无需部署war文件</li>
+<li>简化maven配置</li>
+<li>自动配置spring添加对应功能starter自动化配置</li>
+</ul>
+<p>(2) springboot常用的starter有哪些 </p>
+<ul>
+<li>spring-boot-starter-web 嵌入tomcat和web开发需要servlet与jsp支持</li>
+<li>spring-boot-starter-data-jpa 数据库支持</li>
+<li>spring-boot-starter-data-redis redis数据库支持</li>
+<li>spring-boot-starter-data-solr solr支持</li>
+<li>mybatis-spring-boot-starter 第三方的mybatis集成starter</li>
+</ul>
+<p>(3) 你如何理解 Spring Boot 中的 Starters？</p>
+<p>Starters可以理解为启动器，它包含了一系列可以集成到应用里面的依赖包，你可以一站式集成 Spring 及其他技术，而不需要到处找示例代码和依赖包。</p>
+<p>(4) springboot自动配置的原理  </p>
+<ul>
+<li>在spring程序main方法中 添加@SpringBootApplication或者@EnableAutoConfiguration会自动去maven中读取每个starter中的spring.factories文件  该文件里配置了所有需要被创建spring容器中的bean</li>
+</ul>
+<p>(5) springboot读取配置文件的方式</p>
+<ul>
+<li>springboot默认读取配置文件为application.properties或者是application.yml. 最先会读取一个bootstrap.yml的文件</li>
+</ul>
+<p>(6) springboot集成mybatis的过程</p>
+<ul>
+<li>添加mybatis的starter maven依赖</li>
+<li>在mybatis的接口中 添加@Mapper注解</li>
+<li>在application.yml或者application.properties配置数据源信息</li>
+</ul>
+<p>(7) 为什么要用 Spring Boot？</p>
+<ul>
+<li>独立运行</li>
+<li>简化配置</li>
+<li>自动配置</li>
+<li>无代码生成和XML配置</li>
+<li>应用监控</li>
+<li>上手容易</li>
+</ul>
+<p>(8) Spring Boot 的核心配置文件有哪几个？它们的区别是什么？  </p>
+<ul>
+<li>Spring Boot 的核心配置文件是 application 和 bootstrap 配置文件。application 配置文件这个容易理解，主要用于 Spring Boot 项目的自动化配置。bootstrap 配置文件有以下几个应用场景。</li>
+<li>使用 Spring Cloud Config 配置中心时，这时需要在 bootstrap 配置文件中添加连接到配置中心的配置属性来加载外部配置中心的配置信息；一些固定的不能被覆盖的属性；一些加密/解密的场景；</li>
+</ul>
+<p>(9) Spring Boot 的核心注解是哪个？它主要由哪几个注解组成的？  </p>
+<p> 启动类上面的注解是@SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下 3 个注解：  </p>
+<ul>
+<li>@SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。</li>
+<li>@EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项，如关闭数据源自动配置功能： @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })。</li>
+<li>@ComponentScan：Spring组件扫描。</li>
+</ul>
+<p>(10) 运行 Spring Boot 有哪几种方式？</p>
+<ul>
+<li>打包用命令或者放到容器中运行</li>
+<li>用 Maven/ Gradle 插件运行</li>
+<li>直接执行 main 方法运行</li>
+</ul>
+<p>(11) Spring Boot 2.X 有什么新特性？与 1.X 有什么区别？</p>
+<ul>
+<li>配置变更</li>
+<li>JDK 版本升级</li>
+<li>第三方类库升级</li>
+<li>响应式 Spring 编程支持</li>
+<li>HTTP/2 支持</li>
+<li>配置属性绑定</li>
+<li>更多改进与加强</li>
+</ul>
+<p>(12) Spring Boot 有哪几种读取配置的方式？</p>
+<p>Spring Boot 可以通过 @PropertySource,@Value,@Environment, @ConfigurationProperties 来绑定变量</p>
+<p>(13) SpringBoot 实现热部署有哪几种方式？</p>
+<ul>
+<li>Spring Loaded</li>
+<li>Spring-boot-devtools  </li>
+</ul>
+<p>(14) Spring Cloud 微服务的那点事</p>
+<p><a href="https://www.toutiao.com/a6604246003090457096/?tt_from=weixin&amp;utm_campaign=client_share&amp;wxshare_count=1&amp;timestamp=1543670961&amp;app=news_article&amp;utm_source=weixin&amp;iid=34453696208&amp;utm_medium=toutiao_android&amp;group_id=6604246003090457096" title="Spring Cloud 微服务的那点事" target="_blank" rel="external">https://www.toutiao.com/a6604246003090457096/?tt_from=weixin&amp;utm_campaign=client_share&amp;wxshare_count=1&amp;timestamp=1543670961&amp;app=news_article&amp;utm_source=weixin&amp;iid=34453696208&amp;utm_medium=toutiao_android&amp;group_id=6604246003090457096</a>  </p>
+<p>(15) Spring Cloud 你们在项目中如何使用？</p>
+<p>项目中基础的Spring Cloud架构是有架构师搭建好的，我们主要安装代码规范开发微服务，并且把微服务注册到Eurake 注册中心，然后在需要调用微服务的客户端使用Feign的注解@FeignClient绑定接口来调用，同时<br>在网关项目中配置自己编写的服务地址</p>
+<p>(16)  Spring Cloud 有哪些组件？</p>
+<ul>
+<li><p>Eurake: SpringCloud的服务发现和注册的组件</p>
+<ul>
+<li>注册中心 ： Eureka server<ul>
+<li>1) 引入SpringBoot依赖，Eureka server依赖</li>
+<li>2）编写启动类，添加注解@EnableEurekaServer</li>
+<li>3）在application.yml中配置注册中心相关信息和指定注册中心的地址</li>
+</ul>
+</li>
+<li>生产者：  Eureka Client<ul>
+<li>1） 引入SpringBoot依赖，Eureka client依赖</li>
+<li>2) 编写启动类，添加注解@EnableEurekaClient</li>
+<li>3）在application.yml中配置相关信息同时指定服务注册中心的地址</li>
+<li>4） 编写微服务（controller+service+dao）</li>
+</ul>
+</li>
+<li>消费者：  Eureka Client<ul>
+<li>1） 引入SpringBoot依赖，Eureka client依赖<ul>
+<li>ribbon依赖 </li>
+<li>feign依赖</li>
+</ul>
+</li>
+<li>2) 编写启动类，添加注解@EnableEurekaClient<ul>
+<li>@EnableDiscoveryClient ： 服务发现的注解</li>
+<li>@EnableFeignClients  ： 开启feign的注解</li>
+</ul>
+</li>
+<li>3）在application.yml中配置相关信息同时指定服务注册中心的地址</li>
+<li>4) 编写微服务访问接口同时使用@FeignClient 指定该接口访问哪一个微服务，然后指定方法访问的url地址</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Ribbon:负载均衡客户端，需要结合RestTemplate进行服务的调用</p>
+<ul>
+<li>默认的负载均衡：轮询    </li>
+<li>服务器启动时，先从Eureka server获取服务列表，然后<br>在请求微服务时，通过RestTemplate进行http调用</li>
+</ul>
+</li>
+<li><p>Feign：Feign默认集成了Ribbon</p>
+<ul>
+<li>Feign可以通过@FeignClient 注解标识一个接口，通过该接口生成一个代理类来进行远程的微服务调用</li>
+</ul>
+</li>
+<li><p>Hystrix ： 熔断限流的组件</p>
+<ul>
+<li>为了防止微服务直接调用时，由于某一个微服务宕机导致整个无法雪崩，这里采用Hystrix来阻断对存在宕机，异常情况的请求，直接本地返回</li>
+<li><p>1）Ribbon集成，首先引入相关的依赖，接着开启@EnableHystrix<br>接着在调用微服务方法上添加 @HystrixCommand(fallbackMethod = “hiError”)指定服务异常的之后本地执行的方法</p>
+</li>
+<li><p>2）Feign集成，在微服务绑定的接口@FeignClient(value = “service-hi”,fallback = SchedualServiceHiHystric.class)中指定异常时调用本地接口实现</p>
+</li>
+<li><p>判定失败：Hystrix会在某个服务连续调用N次不响应的情况下，立即通知调用端调用失败，避免调用端持续等待而影响了整体服务，执行本地业务。</p>
+</li>
+<li><p>恢复服务：Hystrix间隔时间会再次检查此服务，如果服务恢复将继续提供服务。Hystrix间隔几秒会让其中一个请求去调用远程微服务，如果调用成功，就表示服务正常，后面就重新链接</p>
+</li>
+<li><p>开路 断路</p>
+</li>
+</ul>
+</li>
+<li><p>Spring Cloud Config ： 集中管理中心- 特点：(1)集中管理配置文件，可以将配置文件存在本地或者用git仓库存储 （2）配置文件自动刷新，不用重启client</p>
+<ul>
+<li>在Spring Cloud中，有分布式配置中心组件spring cloud config ，它支持配置服务放在配置服务的内存中（即本地），也支持放在远程Git仓库中。在spring cloud config 组件中，分两个角色，一是config server，二是config client</li>
+<li>Server提供配置文件的存储、以接口的形式将配置文件的内容提供出去</li>
+<li>Client通过接口获取数据、并依据此数据初始化自己的应用。</li>
+</ul>
+</li>
+<li><p>Zull (网关)：Zuul的主要功能是路由转发和过滤器。路由功能是微服务的一部分，比如／api/user转发到到user服务，/api/shop转发到到shop服务。zuul默认和Ribbon结合实现了负载均衡的功能。</p>
+<ul>
+<li>1） 引入相关的依赖， Eureka client和zuul的依赖</li>
+<li><p>2) 启动类添加<br>  @EnableZuulProxy  – 开启网关<br>  @EnableEurekaClient – 表示时一个eurake客户端<br>  @EnableDiscoveryClient – 开启服务发现</p>
+<ul>
+<li>3） 编写application.yml配置注册中心地址，<ul>
+<li>配置zuul转发路径和微服务的对应关系</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>4）编写过滤器拦截请求，完成相关权限的校验</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>(17) springcloud如何实现服务的注册和发现</p>
+<ul>
+<li>服务在发布时 指定对应的服务名（服务名包括了IP地址和端口） 将服务注册到注册中心（eureka或者zookeeper）</li>
+<li>这一过程是springcloud自动实现 只需要在main方法添加@EnableDisscoveryClient  同一个服务修改端口就可以启动多个实例</li>
+<li>调用方法：传递服务名称通过注册中心获取所有的可用实例 通过负载均衡策略调用（ribbon和feign）对应的服务</li>
+</ul>
+<p>(18) ribbon和feign区别  </p>
+<ul>
+<li>Ribbon添加maven依赖 spring-starter-ribbon 使用@RibbonClient(value=”服务名称”) 使用RestTemplate调用远程服务对应的方法</li>
+<li><p>feign添加maven依赖 spring-starter-feign 服务提供方提供对外接口 调用方使用 在接口上使用@FeignClient(“指定服务名”)</p>
+</li>
+<li><p>Ribbon和Feign的区别： Ribbon和Feign都是用于调用其他服务的，不过方式不同。</p>
+<ul>
+<li>启动类使用的注解不同，Ribbon用的是@RibbonClient，Feign用的是@EnableFeignClients。</li>
+<li>服务的指定位置不同，Ribbon是在@RibbonClient注解上声明，Feign则是在定义抽象方法的接口中使用@FeignClient声明。</li>
+<li>调用方式不同，Ribbon需要自己构建http请求，模拟http请求然后使用RestTemplate发送给其他服务，步骤相当繁琐。Feign则是在Ribbon的基础上进行了一次改进，采用接口的方式，将需要调用的其他服务的方法定义成抽象方法即可，不需要自己构建http请求。不过要注意的是抽象方法的注解、方法签名要和提供服务的方法完全一致。  </li>
+</ul>
+</li>
+</ul>
+<p>(19) springcloud和dubbo的区别</p>
+<ul>
+<li>最大的区别:Spring Cloud抛弃了Dubbo 的RPC通信，采用的是基于HTTP的REST方式。Dubbo目前也已经支持REST风格的服务，但是在项目中使用dubbo还有很多问题需要解决，比如熔断机制，集中配置等需要自行使用其他技术，但是Spring Cloud提供一套微服务架构比较完善的解决方案。所以目前更多的企业使用Spring Cloud</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+	<div>
+
+<div>
+
+    <div style="text-align:center;color: #ccc;font-size:16px;">-------------还想看?没了呀!-------------</div>
+
+</div>
+
+
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/10/7. 高频面试题-框架/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">YC</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YC</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
