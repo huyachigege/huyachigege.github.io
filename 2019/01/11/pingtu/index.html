@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>驰哥哥简易拼图</title>
+   
+    <style>
+        .itemNotNull {
+            border: inset silver;
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+
+<body>
+<!--<img src="0.jpg" width="120" STYLE="display: inline">-->
+<div id="game" align="center" @keydown.up="up" @keydown.down="down" @keydown.left="left" @keydown.right="right" @keydown.space="space">
+    <h1 style="color: gray">驰哥哥简易拼图</h1>
+    <br>
+	<a id="more"></a>
+    <button ref="button">
+        <table border="1" cellspacing="0" cellpadding="0" width="600px" id="table" align="center">
+            <tr v-for="index in [0,1,2]" align="center">
+                <td v-for="item in arr.slice(index*3,index*3+3)" height="200px" :class="item!=null?'itemNotNull':''" align="center">
+                    <img :src="'/imgs/'+item+'.png'" height="200" alt="">
+                </td>
+            </tr>
+        </table>
+    </button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="font-size: 50px;color: coral">计时: <span style="color: orangered" v-html="time"></span> ms<br>
+        步数: <span style="color: orangered" v-html="step"></span>
+    </div>
+</div>
+</body>
+ <script src="/js/src/vuejs-2.5.16.js"></script>
+<script>
+    vue=new Vue({
+        //绑定game
+        el: "#game",
+        methods: {
+            space: function () {
+                this.arr = [1, 2, 3, 4, 5, 6, 7, 8, null];
+                if (this.arr.toString() == [1, 2, 3, 4, 5, 6, 7, 8, null].toString() && this.startOk == true) {
+                    clearInterval(timer);
+                    alert("恭喜你,完成啦!");
+                }
+
+            },
+            //按键上所执行的方法
+            up: function () {
+                var index_null = this.arr.indexOf(null);
+                //如果null所在的位置不在第三排,也就是null的索引<=5,这时按键上一定能执行
+                if (index_null + 3 <= 8) {
+                    //交换null和null正下方的元素值
+                    this.arr[index_null] = this.arr[index_null + 3];
+                    this.arr[index_null + 3] = null;
+                    this.commonMethod();
+                }
+            },
+            //按键下所执行的方法
+            down: function () {
+                var index_null = this.arr.indexOf(null);
+                //如果null所在的位置不在第一排,也就是null的索引>=3,这时按键下一定能执行
+                if (index_null - 3 >= 0) {
+                    this.arr[index_null] = this.arr[index_null - 3];
+                    this.arr[index_null - 3] = null;
+                    this.commonMethod();
+                }
+            },
+            //按键左所执行的方法
+            left: function () {
+                var index_null = this.arr.indexOf(null);
+                //如果null所在的位置不在第三列,也就是null的索引不为2,5,8,这时按键左一定能执行
+                if (index_null != 2 && index_null != 5 && index_null != 8) {
+                    this.arr[index_null] = this.arr[index_null + 1];
+                    this.arr[index_null + 1] = null;
+                    this.commonMethod();
+
+                }
+            },
+            //按键右所执行的方法
+            right: function () {
+                var index_null = this.arr.indexOf(null);
+                //如果null所在的位置不在第一列,也就是null的索引不为0,3,6,这时按键右一定能执行
+                if (index_null != 0 && index_null != 3 && index_null != 6) {
+                    this.arr[index_null] = this.arr[index_null - 1];
+                    this.arr[index_null - 1] = null;
+                    this.commonMethod();
+                }
+            },
+            //定时时候循环执行的方法
+            timeCount: function () {
+                this.time += 11;
+            },
+            //每次操作后执行的公共方法
+            commonMethod: function () {
+                //步数++
+                this.step++;
+                //强制刷新页面
+                this.$forceUpdate();
+                //如果startOk为false代表此次是手动开始
+                if (this.startOk == false) {
+                    //开始计时任务,并且创建一个全局计时器变量
+                    timer = setInterval(this.timeCount, 11);
+                    //将开始状态设为true,那么之后的操作不会重新设置计时
+                    this.startOk = true;
+                }
+                //判断当前操作后是否完成,如果完成删除定时器
+                if (this.arr.toString() == [1, 2, 3, 4, 5, 6, 7, 8, null].toString() && this.startOk == true) {
+                    clearInterval(timer);
+                    alert("恭喜你,完成啦!");
+                }
+
+            }
+        },
+        data: {
+            //初始数组,元素值对应图片的src地址
+            arr: [1, 2, 3, 4, 5, 6, 7, 8, null],
+            //游戏用时
+            time: 0,
+            //是否人工开启
+            startOk: null,
+            //游戏步数
+            step: 0
+        },
+        //初始化数据
+        created: function () {
+            var count = 0;
+            //将正序数组模拟上,下,左,右方法随机执行,保证绝对有解
+            while (true) {
+                count++;
+                //随机执行大于1000次,而且初始化后最后一个元素为null
+                if (count > 1000 && this.arr[8] == null) {
+                    break;
+                }
+                var number = Math.ceil(Math.random() * 4);
+                if (number == 1) {
+                    this.up();
+                }
+                if (number == 2) {
+                    this.down();
+                }
+                if (number == 3) {
+                    this.left();
+                }
+                if (number == 4) {
+                    this.right();
+                }
+            }
+            this.step = 0;
+            this.time = 0;
+            this.startOk = false;
+			
+        },
+        //获取焦点
+        mounted: function () {
+            this.$refs['button'].focus();
+        }
+    });
+
+</script>
+
+</html>
