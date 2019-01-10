@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="https://fonts.cat.net/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"/>
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="##高频面试题-集合
+(1) Collection和Collections的区别  
+
+Collections是个java.util下的类，它包含有各种有关集合操作的静态方法。
+Collections.sort     对集合排序（需要实现int compareTo） 
+Collections.synchronizedMap      返回一个线程安全的map 
+Collections.binar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合">
+<meta property="og:url" content="http://yoursite.com/2019/01/10/JAVA集合/index.html">
+<meta property="og:site_name" content="驰哥哥教你学Java">
+<meta property="og:description" content="##高频面试题-集合
+(1) Collection和Collections的区别  
+
+Collections是个java.util下的类，它包含有各种有关集合操作的静态方法。
+Collections.sort     对集合排序（需要实现int compareTo） 
+Collections.synchronizedMap      返回一个线程安全的map 
+Collections.binar">
+<meta property="og:updated_time" content="2019-01-10T08:59:41.758Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java集合">
+<meta name="twitter:description" content="##高频面试题-集合
+(1) Collection和Collections的区别  
+
+Collections是个java.util下的类，它包含有各种有关集合操作的静态方法。
+Collections.sort     对集合排序（需要实现int compareTo） 
+Collections.synchronizedMap      返回一个线程安全的map 
+Collections.binar">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/10/JAVA集合/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java集合 | 驰哥哥教你学Java</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">驰哥哥教你学Java</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/JAVA集合/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YC"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="驰哥哥教你学Java"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java集合
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-10 16:47:24 / 修改时间：16:59:41" itemprop="dateCreated datePublished" datetime="2019-01-10T16:47:24+08:00">2019-01-10</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>##高频面试题-集合</p>
+<p>(1) Collection和Collections的区别  </p>
+<ul>
+<li>Collections是个java.util下的类，它包含有各种有关集合操作的静态方法。<ul>
+<li>Collections.sort     对集合排序（需要实现int compareTo） </li>
+<li>Collections.synchronizedMap      返回一个线程安全的map </li>
+<li>Collections.binarySearch     二分查找一个元素 </li>
+<li>Collections.shuffle      对集合进行随机排序（就是指每次排序后都不同） </li>
+</ul>
+</li>
+<li>Collection是个java.util下的接口，它是各种集合结构的父接口。 <ul>
+<li>List,Set的父接口</li>
+<li>Collection跟Map没有联系</li>
+</ul>
+</li>
+</ul>
+<p>(2) List 和 Set 区别  </p>
+<ul>
+<li>list：列表，表达形式 [ ]，或者list()，有序，通过索引值进行查找</li>
+<li>set：集合,表达形式set([ ])，无序自动去重。可以做集合的交集，并集，差集</li>
+</ul>
+<p>(3) Set内存放的元素为什么不可以重复，内部是如何保证和实现的？ </p>
+<ul>
+<li>HashSet类实现了Set接口， 其底层其实是包装了一个HashMap去实现的。HashSet采用HashCode算法来存取集合中的元素，因此具有比较好的读取和查找性能。首先根据key的hashCode()返回值决定该Entry的存储位置，如果两个key的hash值相同，那么它们的存储位置相同。如果这个两个key的equals比较返回true。那么新添加的Entry的value会覆盖原来的Entry的value，key不会覆盖</li>
+</ul>
+<p>(4) Arraylist 与 LinkedList 区别   </p>
+<ul>
+<li>ArrayList是实现了基于动态数组的数据结构，而LinkedList是基于链表的数据结构；</li>
+<li>对于随机访问get和set，ArrayList要优于LinkedList，因为LinkedList要移动指针；</li>
+<li>对于添加和删除操作add和remove，一般大家都会说LinkedList要比ArrayList快，因为ArrayList要移动数据。但是实际情况并非这样，对于添加或删除，LinkedList和ArrayList并不能明确说明谁快谁慢<blockquote>
+<p>所以当插入的数据量很小时，两者区别不太大，当插入的数据量大时，大约在容量的1/10之前，LinkedList会优于ArrayList，在其后就劣与ArrayList，且越靠近后面越差。所以个人觉得，一般首选用ArrayList，由于LinkedList可以实现栈、队列以及双端队列等数据结构，所以当特定需要时候，使用LinkedList，当然咯，数据量小的时候，两者差不多，视具体情况去选择使用；当数据量大的时候，如果只需要在靠前的部分插入或删除数据，那也可以选用LinkedList，反之选择ArrayList反而效率更高</p>
+</blockquote>
+</li>
+</ul>
+<p>(5) Arraylist与LinkedList,Map默认空间是多少； </p>
+<ul>
+<li>jdk1.6 ArrayList 初始化大小是 10,扩容大小规则是，扩容后的大小= 原始大小+原始大小/2 + 1</li>
+<li>jdk1.7 ArrayList 初始化大小是 0,第一次添加元素时,会将容量设置为10,扩容大小规则是，扩容后的大小= 原始大小+原始大小/2 </li>
+<li>linkedList 是一个双向链表，没有初始化大小，也没有扩容的机制</li>
+<li>HashMap 初始化大小是 16 ，扩容因子默认0.75（可以指定初始化大小，和扩容因子）<br>扩容机制.(当前大小 和 当前容量 的比例超过了 扩容因子，就会扩容，扩容后大小为 一倍。例如：初始大小为 16 ，扩容因子 0.75 ，当容量为12的时候，比例已经是0.75 。触发扩容，扩容后的大小为 32.)</li>
+</ul>
+<p>(6) ArrayList 与 Vector 区别  </p>
+<ul>
+<li>Vector 是线程安全的，也就是说是它的方法之间是线程同步的，而 ArrayList 是线程<br>序不安全</li>
+<li>ArrayList 与 Vector 都有一个初始的容量大小，当存储进它们里面的元素的个数超过<br>了容量，就需要增加 ArrayList 与 Vector 的存储空间。Vector 增长原来的一倍， ArrayList 增加原来的0.5倍。</li>
+</ul>
+<p>(7) HashSet 和 HashMap 区别  </p>
+<ul>
+<li>HashMap实现Map接口，存储键值对，HashMap使用键（Key）计算Hashcode</li>
+<li>HashSet实现Set接口，底层采用HashMap实现，仅存储对象，HashSet使用成员对象来计算hashcode值，对于两个对象来说hashcode可能相同，所以equals()方法用来判断对象的相等性，如果两个对象不同的话，那么返回false。</li>
+</ul>
+<p>(8) HashMap 和 Hashtable 的区别  </p>
+<ul>
+<li>HashMap是非线程安全的，只是用于单线程环境下，多线程环境下可以采用concurrent并发包下的concurrentHashMap。HashMap中，null可以作为键，这样的键只有一个；</li>
+<li>Hashtable也是JDK1.0引入的类，是线程安全的，Hashtable中，key和value都不允许出现null值。</li>
+<li>遍历方式： Hashtable、HashMap都使用了 Iterator。而由于历史原因，Hashtable还使用了Enumeration的方式 。</li>
+<li>哈希值的使用不同，HashTable直接使用对象的hashCode。而HashMap重新计算hash值</li>
+<li>扩容机制和初始化大小： HashTable在不指定容量的情况下的默认容量为11，而HashMap为16，Hashtable不要求底层数组的容量一定要为2的整数次幂，而HashMap则要求一定为2的整数次幂。Hashtable扩容时，将容量变为原来的2倍加1，而HashMap扩容时，将容量变为原来的2倍。 </li>
+</ul>
+<p>(9) 谈谈HashMap，哈希表解决hash冲突的方法； </p>
+<ul>
+<li>JDK1.8 之前 HashMap 底层是 数组和链表 结合在一起使用也就是 链表散列。HashMap 通过 key 的 hashCode 经过扰动函数处理过后得到 hash  值，然后通过 (n - 1) &amp; hash 判断当前元素存放的位置（这里的 n 指的时数组的长度），如果当前位置存在元素的话，就判断该元素与要存入的元素的 hash 值以及 key 是否相同，如果相同的话，直接覆盖，不相同就通过拉链法解决冲突。jdk1.8在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为8）时，将链表转化为红黑树，以减少搜索时间,提高查询速度</li>
+</ul>
+<p>(10) HashMap 和 ConcurrentHashMap 的区别  </p>
+<ul>
+<li>从ConcurrentHashMap代码中可以看出，它引入了一个“分段锁”的概念，具体可以理解为把一个大的Map拆分成N个小的HashTable，根据key.hashCode()来决定把key放到哪个HashTable中。可以提供相同的线程安全，但是效率提升N倍，默认提升16倍。</li>
+</ul>
+<p>(13) ConcurrentHashMap 的工作原理及代码实现，如何统计所有的元素个数  </p>
+<ul>
+<li><p>这也就是为什么sumCount()中需要遍历counterCells数组，sum累加CounterCell.value值了<br>(16) Java Collections和Arrays的sort方法默认的排序方法是什么； </p>
+</li>
+<li><p>java的Collections.sort算法调用的是合并排序</p>
+</li>
+<li>Arrays.sort() 采用了2种排序算法 – 基本类型数据使用快速排序法，对象数组使用归并排序</li>
+</ul>
+<p>(17) ArrayList和LinkList的删除一个元素的时间复杂度；（ArrayList是O(N)，LinkList是O(1)） </p>
+<ul>
+<li><p>ArrayList 是线性表（数组）</p>
+<ul>
+<li>get() 直接读取第几个下标，复杂度 O(1)</li>
+<li>add(E) 添加元素，直接在后面添加，复杂度O（1）</li>
+<li>add(index, E) 添加元素，在第几个元素后面插入，后面的元素需要向后移动，复杂度O（n）</li>
+<li>remove（）删除元素，后面的元素需要逐个移动，复杂度O（n）</li>
+</ul>
+</li>
+<li><p>LinkedList 是链表的操作</p>
+<ul>
+<li>get() 获取第几个元素，依次遍历，复杂度O(n)</li>
+<li>add(E) 添加到末尾，复杂度O(1)</li>
+<li>add(index, E) 添加第几个元素后，需要先查找到第几个元素，直接指针指向操作，复杂度O(n)</li>
+<li>remove（）删除元素，直接指针指向操作，复杂度O(1)</li>
+</ul>
+</li>
+</ul>
+<p>(18) HashMap在什么时候时间复杂度是O（1），什么时候是O（n），什么时候又是O（logn）； </p>
+<ul>
+<li>链表的长度尽可能短，理想状态下链表长度都为1 </li>
+<li>当 Hash 冲突严重时，如果没有红黑树，那么在桶上形成的链表会变的越来越长，这样在查询时的效率就会越来越低；时间复杂度为O(N)。 </li>
+<li>采用红黑树之后可以保证查询效率O(logn)</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+	<div>
+
+<div>
+
+    <div style="text-align:center;color: #ccc;font-size:16px;">-------------还想看?没了呀!-------------</div>
+
+</div>
+
+
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/10/测试用 - 副本/" rel="next" title="测试用">
+                <i class="fa fa-chevron-left"></i> 测试用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">YC</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YC</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
