@@ -1892,7 +1892,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #20b9cf;
+  background: #695cfa;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2688,10 +2688,10 @@ ul.breadcrumb li+li:last-child {
   padding-right: 260px;
 }
 .header {
-  width: 85%;
+  width: 100%;
 }
 .container .main-inner {
-  width: 85%;
+  width: 100%;
 }
 .site-brand-wrapper {
   position: relative;
