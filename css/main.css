@@ -458,7 +458,7 @@ table>tbody>tr:hover {
 caption,
 th,
 td {
-  padding: 9px;
+  padding: 4px;
   text-align: left;
   vertical-align: middle;
   font-weight: normal;
@@ -1404,7 +1404,7 @@ pre .javascript .function {
 .posts-collapse {
   position: relative;
   z-index: 1010;
-  margin-left: 70px;
+  margin-left: 50px;
 }
 .posts-collapse::after {
   content: " ";
@@ -1663,7 +1663,7 @@ pre .javascript .function {
 }
 .posts-expand .post-eof {
   display: block;
-  margin: 80px auto 60px;
+  margin: 60px auto 80px;
   width: 8%;
   height: 1px;
   background: #ccc;
@@ -1892,7 +1892,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2ff;
+  background: #f53eba;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2612,26 +2612,27 @@ ul.breadcrumb li+li:last-child {
   }
 }
 .content-wrap {
-  float: right;
+  float: auto;
   box-sizing: border-box;
-  padding: 40px;
+  padding: 0 40px;
   width: calc(100% - 252px);
-  background: #fff;
-  min-height: 700px;
+  background: #f5f5f5;
+  min-height: 650px;
   box-shadow: initial;
   border-radius: initial;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .content-wrap {
-    width: 100%;
-    padding: 20px;
+    width: auto;
+    padding: 0px;
     border-radius: initial;
   }
 }
 @media (max-width: 767px) {
   .content-wrap {
-    width: 100%;
-    padding: 20px;
+    width: auto;
+    padding: 0;
+    padding-left: 0;
     min-height: auto;
     border-radius: initial;
   }
