@@ -426,7 +426,7 @@ BeanFactory是Spring中最底层的接口，提供了最简单的容器的功能
       
 
       
-        <p><meta name="referrer" content="no-referrer"></p>
+        <p><meta name="referrer" content="no-referrer" /></p>
 <h2 id="高频面试题-框架"><a href="#高频面试题-框架" class="headerlink" title="高频面试题-框架"></a>高频面试题-框架</h2><p>(1) BeanFactory 和 ApplicationContext 有什么区别  </p>
 <ul>
 <li><p>BeanFactory和ApplicationContext都是接口，并且ApplicationContext是BeanFactory的子接口。</p>
@@ -464,11 +464,11 @@ BeanFactory是Spring中最底层的接口，提供了最简单的容器的功能
 </li>
 <li><p>通知（Advice）类型:</p>
 <ul>
-<li>前置通知（Before advice） ：在某连接点（JoinPoint）之前执行的通知，但这个通知不能阻止连接点前的执行。ApplicationContext中在<aop:aspect>里面使用<aop:before>元素进行声明。</aop:before></aop:aspect></li>
-<li>后通知（After advice） ：当某连接点退出的时候执行的通知（不论是正常返回还是异常退出）。ApplicationContext中在<aop:aspect>里面使用<aop:after>元素进行声明。</aop:after></aop:aspect></li>
-<li>返回后通知（After return advice） ：在某连接点正常完成后执行的通知，不包括抛出异常的情况。ApplicationContext中在<aop:aspect>里面使用<after-returning>元素进行声明。</after-returning></aop:aspect></li>
-<li>环绕通知（Around advice） ：包围一个连接点的通知，类似Web中Servlet规范中的Filter的doFilter方法。可以在方法的调用前后完成自定义的行为，也可以选择不执行。ApplicationContext中在<aop:aspect>里面使用<aop:around>元素进行声明。</aop:around></aop:aspect></li>
-<li><p>抛出异常后通知（After throwing advice） ： 在方法抛出异常退出时执行的通知。 ApplicationContext中在<aop:aspect>里面使用<aop:after-throwing>元素进行声明。</aop:after-throwing></aop:aspect></p>
+<li>前置通知（Before advice） ：在某连接点（JoinPoint）之前执行的通知，但这个通知不能阻止连接点前的执行。ApplicationContext中在<aop:aspect>里面使用<aop:before>元素进行声明。</li>
+<li>后通知（After advice） ：当某连接点退出的时候执行的通知（不论是正常返回还是异常退出）。ApplicationContext中在<aop:aspect>里面使用<aop:after>元素进行声明。</li>
+<li>返回后通知（After return advice） ：在某连接点正常完成后执行的通知，不包括抛出异常的情况。ApplicationContext中在<aop:aspect>里面使用<after-returning>元素进行声明。</li>
+<li>环绕通知（Around advice） ：包围一个连接点的通知，类似Web中Servlet规范中的Filter的doFilter方法。可以在方法的调用前后完成自定义的行为，也可以选择不执行。ApplicationContext中在<aop:aspect>里面使用<aop:around>元素进行声明。</li>
+<li><p>抛出异常后通知（After throwing advice） ： 在方法抛出异常退出时执行的通知。 ApplicationContext中在<aop:aspect>里面使用<aop:after-throwing>元素进行声明。</p>
 </li>
 <li><p>切入点表达式 ：如execution(<em> com.spring.service.</em>.*(..))</p>
 </li>
@@ -649,7 +649,7 @@ BeanFactory是Spring中最底层的接口，提供了最简单的容器的功能
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -666,7 +666,9 @@ BeanFactory是Spring中最底层的接口，提供了最简单的容器的功能
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   
                 </div>
@@ -681,7 +683,9 @@ BeanFactory是Spring中最底层的接口，提供了最简单的容器的功能
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

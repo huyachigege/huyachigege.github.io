@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"/>
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":8},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言&amp;emsp;&amp;emsp;突然间想写一写给数开方的算法，顺便延伸到开N次方犹记得刚学习Java的时候，对算法毫无概念，当时学完数组和找数组中最大值的时候就自己写了个排序，后来才知道那是排序中最为基础的冒泡排序。而且，其实在真正接触编程之前，以为对于加减乘除和开方是编程语言里面本身就有的一个符号搞定的事，甚至当时想用2^3来求三次方，对于不明白计算机的组成以及计算机存储数据的原理，才会这么的蠢萌">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给一个数开N次方">
+<meta property="og:url" content="http://yoursite.com/2019/01/11/开给一个数开N次方/index.html">
+<meta property="og:site_name" content="驰哥哥教你学Java">
+<meta property="og:description" content="前言&amp;emsp;&amp;emsp;突然间想写一写给数开方的算法，顺便延伸到开N次方犹记得刚学习Java的时候，对算法毫无概念，当时学完数组和找数组中最大值的时候就自己写了个排序，后来才知道那是排序中最为基础的冒泡排序。而且，其实在真正接触编程之前，以为对于加减乘除和开方是编程语言里面本身就有的一个符号搞定的事，甚至当时想用2^3来求三次方，对于不明白计算机的组成以及计算机存储数据的原理，才会这么的蠢萌">
+<meta property="og:updated_time" content="2019-01-11T22:30:05.873Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="给一个数开N次方">
+<meta name="twitter:description" content="前言&amp;emsp;&amp;emsp;突然间想写一写给数开方的算法，顺便延伸到开N次方犹记得刚学习Java的时候，对算法毫无概念，当时学完数组和找数组中最大值的时候就自己写了个排序，后来才知道那是排序中最为基础的冒泡排序。而且，其实在真正接触编程之前，以为对于加减乘除和开方是编程语言里面本身就有的一个符号搞定的事，甚至当时想用2^3来求三次方，对于不明白计算机的组成以及计算机存储数据的原理，才会这么的蠢萌">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/11/开给一个数开N次方/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>给一个数开N次方 | 驰哥哥教你学Java</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">驰哥哥教你学Java</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/开给一个数开N次方/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YC"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="驰哥哥教你学Java"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">给一个数开N次方
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-11 23:05:08" itemprop="dateCreated datePublished" datetime="2019-01-11T23:05:08+08:00">2019-01-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-12 06:30:05" itemprop="dateModified" datetime="2019-01-12T06:30:05+08:00">2019-01-12</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><meta name="referrer" content="no-referrer" /></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;突然间想写一写给数开方的算法，顺便延伸到开N次方犹记得刚学习Java的时候，对算法毫无概念，当时学完数组和找数组中最大值的时候就自己写了个排序，后来才知道那是排序中最为基础的冒泡排序。而且，其实在真正接触编程之前，以为对于加减乘除和开方是编程语言里面本身就有的一个符号搞定的事，甚至当时想用2^3来求三次方，对于不明白计算机的组成以及计算机存储数据的原理，才会这么的蠢萌。下面就介绍下我自己所写的开方的算法，我知道不是最优，但是只是想分享一下思考的逻辑，假若今后的某一天回看也会为觉得有点收获。</p>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>&emsp;&emsp;Java里面拥有8种基本数据类型:<font color=red>byte</font>(-128~127)，<font color=red>short</font>(-32768~32767)，<font color=red>int</font>(-2^31~2^31-1)，<fontcolor=red>long</font>(-2^63,2^63-1)这四种为<font color=red>整型数据</font>，也就是发生运算后的结果也会是整型(就是不会存在小数点)，想要小数点的话就要用到<font color=red>浮点型:float</font>(单精度)和<font color=red>double</font>(双精度)了，因为计算机的数据是用高低电平代表二进制中的1和0，它们本身就属于整数,想要表示小数也就是浮点数就会用到近似值，所以只要是浮点型,必然不会完全的精确。举个例子:<br><code>System.out.println(0.01/0.2);</code><br>结果并不是我们认为的0.5，而是0.049999999999999996，真就这么神奇，不信可以私底去验证。当然还有<font color=red>char，boolean</font>这两种基本数据类型，但跟今天的开方无关</p>
+<h3 id="驰哥哥开方算法之一-穷举法"><a href="#驰哥哥开方算法之一-穷举法" class="headerlink" title="驰哥哥开方算法之一:穷举法"></a><font color=#3385FF>驰哥哥开方算法之一:穷举法</font></h3><p>&emsp;&emsp;穷举法是理解起来最容易的算法，仰仗于计算机的高性能计算，穷举变得简单又实用，想取得运算结果，只用在结果区间里用步进验证来获取最终正确的结果。开方也能这样来算，首先获取到开方数所在的区间，然后按照某个精度来步进，每次步进验证是否为期望的结果，直到得到当前精度下正确的值，下图为逻辑流程图。(ps:<font color=red>为了获得更高的精度，下面的开方都用double数据类型</font>)</p>
+<p><div id="flowchart-0" class="flow-chart"></div><br>代码如下所示:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</div><div class="line"> * Description:</div><div class="line"> *</div><div class="line"> * <span class="doctag">@author</span>:</div><div class="line"> * <span class="doctag">@date</span>: 2019/1/12</div><div class="line"> * <span class="doctag">@param</span>:[待开数, 小数位数]</div><div class="line"> * <span class="doctag">@return</span>:double</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getSqrtByExhaustion</span><span class="params">(<span class="keyword">double</span> source, <span class="keyword">int</span> depth)</span> </span>&#123;</div><div class="line">	<span class="comment">//只有不小于0的数才能被开平方</span></div><div class="line">	<span class="keyword">if</span> (source &lt; <span class="number">0</span>) &#123;</div><div class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"被开平方数必须大于0"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//获取精度,例如精度0.01,则计算时需精确到0.001后四舍五入</span></div><div class="line">	<span class="keyword">int</span> dp = <span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; depth + <span class="number">1</span>; i++) &#123;</div><div class="line">		dp *= <span class="number">10</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">double</span> result = <span class="number">0</span>;</div><div class="line">	<span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">		<span class="comment">//步进循环,穷举出期望结果</span></div><div class="line">		result += <span class="number">1.0</span> / dp;</div><div class="line">		<span class="comment">//如果result * result &gt; source,说明期望结果在前一次循环和这次循环之间</span></div><div class="line">		<span class="keyword">if</span> (result * result &gt; source) &#123;</div><div class="line">			result -= <span class="number">1.0</span> / dp;</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">       <span class="comment">//返回四舍五入后的结果</span></div><div class="line">	<span class="keyword">return</span> Math.round(result * dp / <span class="number">10</span>) * <span class="number">10.0</span> / dp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>上述方法理解简单，不用考虑过多复杂的逻辑，就像用字典暴力破解密码一样，虽能用，但是效率低下，精度要求不高还好，如果精度高一级，那么运算量就是10倍的增幅，但是仔细想想，上面的方法还有优化的地方，比如定位到一个区间内来遍历，那就引出下面第二种算法:</p>
+<h3 id="驰哥哥开方算法之二-穷举法Plus"><a href="#驰哥哥开方算法之二-穷举法Plus" class="headerlink" title="驰哥哥开方算法之二:穷举法Plus"></a><font color=#3385FF>驰哥哥开方算法之二:穷举法Plus</font></h3><p>&emsp;&emsp;这次我们在上面的基础上，分位来穷举，比如最高位，第二位。。。最低位，流程图如下：</p>
+<p><div id="flowchart-1" class="flow-chart"></div><br>代码如下所示:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getSqrtByExhaustionPlus</span><span class="params">(<span class="keyword">double</span> source, <span class="keyword">int</span> depth)</span> </span>&#123;</div><div class="line">	<span class="comment">//只有不小于0的数才能被开平方</span></div><div class="line">	<span class="keyword">if</span> (source &lt; <span class="number">0</span>) &#123;</div><div class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"被开平方数必须大于0"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//将待开方数转成字符串</span></div><div class="line">	String sourceStr = source + <span class="string">""</span>;</div><div class="line">	<span class="comment">//获取待开方数的最高位数</span></div><div class="line">	String[] strs = sourceStr.split(<span class="string">"\\."</span>);</div><div class="line">	<span class="keyword">int</span> highest = strs[<span class="number">0</span>].length();</div><div class="line">	<span class="comment">//如果0.**的数，那么最高位不能从1穷举，所以直接进入下一位</span></div><div class="line">	<span class="keyword">if</span> (<span class="string">"0"</span>.equals(strs[<span class="number">0</span>])) &#123;</div><div class="line">		<span class="keyword">return</span> goToNextDepth(<span class="number">0</span>, source, <span class="number">0</span>, depth);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//初始化开方后最高位位数</span></div><div class="line">	<span class="keyword">int</span> maxDepth = <span class="number">0</span>;</div><div class="line">	<span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">		maxDepth++;</div><div class="line">		<span class="keyword">if</span> (maxDepth * maxDepth &gt; highest) &#123;</div><div class="line">			maxDepth--;</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> goToNextDepth(maxDepth, source, -highest + <span class="number">1</span>, depth);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</div><div class="line"> * <span class="doctag">@date</span>: 2019/1/12</div><div class="line"> * <span class="doctag">@param</span>:[当前计算值, 被开方数, 当前位数，精确位数]</div><div class="line"> * <span class="doctag">@return</span>:double</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">goToNextDepth</span><span class="params">(<span class="keyword">double</span> current, <span class="keyword">double</span> target, <span class="keyword">int</span> currentDepth, <span class="keyword">int</span> targetDepth)</span> </span>&#123;</div><div class="line">	<span class="comment">//如果当前位数&gt;=0说明已经递归到小数点之后</span></div><div class="line">	<span class="keyword">if</span> (currentDepth &gt;= <span class="number">0</span>) &#123;</div><div class="line">		<span class="comment">//获取精度,例如精度0.01,则计算时需精确到0.001后四舍五入</span></div><div class="line">		<span class="keyword">int</span> dp = <span class="number">1</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; currentDepth + <span class="number">1</span>; i++) &#123;</div><div class="line">			dp *= <span class="number">10</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="comment">//如果达到精度要求，返回值</span></div><div class="line">		<span class="keyword">if</span> (currentDepth == targetDepth + <span class="number">1</span>) &#123;</div><div class="line">			<span class="comment">//返回四舍五入后的结果</span></div><div class="line">			<span class="keyword">return</span> Math.round(current * dp / <span class="number">100</span>) * <span class="number">100.0</span> / dp;</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">				<span class="comment">//逼近当前位的期望值</span></div><div class="line">				current += <span class="number">1.0</span> / dp;</div><div class="line">				<span class="keyword">if</span> (current * current &gt; target) &#123;</div><div class="line">					current -= <span class="number">1.0</span> / dp;</div><div class="line">					<span class="comment">//递归调用下一级</span></div><div class="line">					currentDepth++;</div><div class="line">					<span class="keyword">return</span> goToNextDepth(current, target, currentDepth, targetDepth);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//如果当前位数&lt;0说明在小数点之前</span></div><div class="line">	<span class="keyword">else</span> &#123;</div><div class="line">		<span class="keyword">int</span> dp = <span class="number">1</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Math.abs(currentDepth); i++) &#123;</div><div class="line">			dp *= <span class="number">10</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">			<span class="comment">//逼近当前位的期望值</span></div><div class="line">			current += <span class="number">1.0</span> * dp;</div><div class="line">			<span class="keyword">if</span> (current * current &gt; target) &#123;</div><div class="line">				current -= <span class="number">1.0</span> * dp;</div><div class="line">				<span class="comment">//递归调用下一级</span></div><div class="line">				currentDepth++;</div><div class="line">				<span class="keyword">return</span> goToNextDepth(current, target, currentDepth, targetDepth);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>虽然上述方法效率要高不少，我们知道在元素越多，比如上面要求的精度越高，位数越多，每位都要基本从0开始步进，那么求解会越耗时。从冒泡排序到快速排序，我们知道查找元素可以不光从头开始遍历，还可以二分查找，所以就印出来下面的第三种方法：</p>
+<h3 id="驰哥哥开方算法之三-二分法"><a href="#驰哥哥开方算法之三-二分法" class="headerlink" title="驰哥哥开方算法之三:二分法"></a><font color=#3385FF>驰哥哥开方算法之三:二分法</font></h3><p>当X大于等于一时，X^2函数的斜率大于一，所以此时√X在1和x之间，当X<1时，此时√X在x和1之间，代码如下：
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</div><div class="line"> * <span class="doctag">@date</span>: 2019/1/12</div><div class="line"> * <span class="doctag">@param</span>:[左区间, 有区间, 被开方数,精确位数]</div><div class="line"> * <span class="doctag">@return</span>:double</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getMiddle</span><span class="params">(<span class="keyword">double</span> start, <span class="keyword">double</span> end, <span class="keyword">double</span> target, <span class="keyword">int</span> depth)</span> </span>&#123;</div><div class="line">	<span class="comment">//获取精度,例如精度0.01,则计算时需精确到0.001后四舍五入</span></div><div class="line">	<span class="keyword">long</span> dp = <span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; depth + <span class="number">1</span>; i++) &#123;</div><div class="line">		dp *= <span class="number">10</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">double</span> middle = (start + end) / <span class="number">2.0</span>;</div><div class="line">	<span class="keyword">if</span> (Math.abs(start - end) &lt;= <span class="number">1.0</span> / dp) &#123;</div><div class="line">		<span class="keyword">return</span> Math.round(middle * dp / <span class="number">10</span>) * <span class="number">10.0</span> / dp;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (middle * middle &lt; target) &#123;</div><div class="line">		<span class="keyword">return</span> getMiddle(middle, end, target, depth);</div><div class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (middle * middle &gt; target) &#123;</div><div class="line">		<span class="keyword">return</span> getMiddle(start, middle, target, depth);</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		<span class="keyword">return</span> start;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getSqr</span><span class="params">(<span class="keyword">double</span> s, <span class="keyword">int</span> depth)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span> (s &gt;= <span class="number">1</span>) &#123;</div><div class="line">		<span class="keyword">return</span> getMiddle(<span class="number">1</span>, s, s, depth);</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		<span class="keyword">return</span> getMiddle(s, <span class="number">1</span>, s, depth);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>档精度要求不高时，二和三的效率差不多，但是精度越高，方法三计算越快。<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 0
+e=>end:>
+op1=>operation: 精度++(如0.001++)
+cond=>condition: 平方是否>=待开方数
+
+
+st(right)->op1->cond
+cond(yes)->e
+cond(no)->op1</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><textarea id="flowchart-1-code" style="display: none">st=>start: 最高位1开始
+e=>end:>
+op1=>operation: 最高位++
+op2=>operation: 第二位0开始++
+op3=>operation: ...
+op4=>operation: 最低位0开始++
+cond=>condition: 平方是否>=待开方数
+cond2=>condition: 平方是否>=待开方数
+cond3=>condition: 平方是否>=待开方数
+
+
+st(right)->op1(right)->cond
+cond(yes)->op2(right)->cond2
+cond(no)->op1
+cond2(no)->op2
+cond2(yes)->op3->op4(right)->cond3
+cond3(no)->op4
+cond3(yes)->e</textarea><textarea id="flowchart-1-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-1-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-1", options);</script></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+	<div>
+
+<div>
+
+    <div style="text-align:center;color: #ccc;font-size:16px;">-------------还想看?没了呀!-------------</div>
+
+</div>
+
+
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/开N次方/" rel="tag"><i class="fa fa-tag"></i> 开N次方</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/11/面试题部分答案/" rel="next" title="面试题部分答案(转载自<a href=https://note.youdao.com/ynoteshare1/index.html?id=7aee3877212003b9e29bccc77d08bacb&type=note#/><font color=red>德国老中医-设计题拾遗</font></a>)">
+                <i class="fa fa-chevron-left"></i> 面试题部分答案(转载自<a href=https://note.youdao.com/ynoteshare1/index.html?id=7aee3877212003b9e29bccc77d08bacb&type=note#/><font color=red>德国老中医-设计题拾遗</font></a>)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">YC</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.0.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#驰哥哥开方算法之一-穷举法"><span class="nav-number">1.0.2.</span> <span class="nav-text">驰哥哥开方算法之一:穷举法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#驰哥哥开方算法之二-穷举法Plus"><span class="nav-number">1.0.3.</span> <span class="nav-text">驰哥哥开方算法之二:穷举法Plus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#驰哥哥开方算法之三-二分法"><span class="nav-number">1.0.4.</span> <span class="nav-text">驰哥哥开方算法之三:二分法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YC</span>
+
+  
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function () {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>

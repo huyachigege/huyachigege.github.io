@@ -433,7 +433,7 @@
       
 
       
-        <meta name="referrer" content="no-referrer">
+        <meta name="referrer" content="no-referrer" />
 
 <p><img src="https://i.imgur.com/LNnOxJz.png" alt=""><br>这里我先写一下第四题的思路：<br>（1）首先将25匹马随机5匹一组分成五组，然后比赛5次，这时我们可以将分的5组分为A,B,C,D,E五组，将比赛名次如下图排出对马匹命名<br><img src="https://i.imgur.com/1EfkZ72.png" alt=""><br>首先我们将各组第一名也就是A1,B1,C1,D1,E1,进行比赛<br>假定结果为 A1  B1  C1  D1  E1<br><strong>那么我们得到了第一名 A1，这时候我们已经比赛了6场，记录一下。</strong><br>得到了第一名是A1，那么第二名就一定会是B1吗？<br>显然不是。<br>因为可能会出现这种情况：那就是真正的第一第二第三刚好就是A组里面的A1 A2 A3，如果我们简单的把B1认为是第二名 这是不严谨的。<br>所以第七场比赛我们应该这么考虑。<br>首先A2 A3可能是第2 3名 然后B2 B3也有可能是2 3 名，为什么要考虑B组的呢？因为也会存在B2 B3恰好是真的第二三名的情况。同时我们也考虑到无论怎么排名C组的C1只可能是第三名，因为他的前面有B1比他跑得快。<br><a id="more"></a><br>那么第七场比赛 出场的阵容应该是 A2 A3 B2 B3 C1 这样我们就能在第七场得到了第二三名的马匹。<br><strong>截至目前我们比赛了七场，记录一下</strong></p>
 <p>  我们在这里列举出第7场的2，3名次的所有可能情况：</p>
@@ -498,7 +498,7 @@
       ● 如果第4名=D1，那么第5名只能在A2、B2、C2、D2、E2中产生。
 
        那么，第4、5名需要在马匹[A2、B2、C2、D1、A3、B3、C3、D2、E1]九匹马中 产 生，因此也必须比赛两场，也就是到第9长决出胜负。
-</code></pre><p><strong><font color="red" size="4">总结：最好情况可以在第8场角逐出前5名，最差也可以在第9场搞定。</font></strong></p>
+</code></pre><p><strong><font color=red size=4>总结：最好情况可以在第8场角逐出前5名，最差也可以在第9场搞定。</font></strong></p>
 
       
     </div>
@@ -554,6 +554,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/11/开给一个数开N次方/" rel="prev" title="给一个数开N次方">
+                给一个数开N次方 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -614,7 +618,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -631,7 +635,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   
                 </div>
@@ -646,7 +652,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

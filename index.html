@@ -328,6 +328,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/开给一个数开N次方/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YC"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="驰哥哥教你学Java"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/01/11/开给一个数开N次方/" class="post-title-link" itemprop="url">给一个数开N次方</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-11 23:05:08" itemprop="dateCreated datePublished" datetime="2019-01-11T23:05:08+08:00">2019-01-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-12 06:30:05" itemprop="dateModified" datetime="2019-01-12T06:30:05+08:00">2019-01-12</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><meta name="referrer" content="no-referrer" /></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;突然间想写一写给数开方的算法，顺便延伸到开N次方犹记得刚学习Java的时候，对算法毫无概念，当时学完数组和找数组中最大值的时候就自己写了个排序，后来才知道那是排序中最为基础的冒泡排序。而且，其实在真正接触编程之前，以为对于加减乘除和开方是编程语言里面本身就有的一个符号搞定的事，甚至当时想用2^3来求三次方，对于不明白计算机的组成以及计算机存储数据的原理，才会这么的蠢萌。下面就介绍下我自己所写的开方的算法，我知道不是最优，但是只是想分享一下思考的逻辑，假若今后的某一天回看也会为觉得有点收获。</p>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>&emsp;&emsp;Java里面拥有8种基本数据类型:<font color=red>byte</font>(-128~127)，<font color=red>short</font>(-32768~32767)，<font color=red>int</font>(-2^31~2^31-1)，<fontcolor=red>long</font>(-2^63,2^63-1)这四种为<font color=red>整型数据</font>，也就是发生运算后的结果也会是整型(就是不会存在小数点)，想要小数点的话就要用到<font color=red>浮点型:float</font>(单精度)和<font color=red>double</font>(双精度)了，因为计算机的数据是用高低电平代表二进制中的1和0，它们本身就属于整数,想要表示小数也就是浮点数就会用到近似值，所以只要是浮点型,必然不会完全的精确。举个例子:<br><code>System.out.println(0.01/0.2);</code><br>结果并不是我们认为的0.5，而是0.049999999999999996，真就这么神奇，不信可以私底去验证。当然还有<font color=red>char，boolean</font>这两种基本数据类型，但跟今天的开方无关</p>
+<h3 id="驰哥哥开方算法之一-穷举法"><a href="#驰哥哥开方算法之一-穷举法" class="headerlink" title="驰哥哥开方算法之一:穷举法"></a><font color=#3385FF>驰哥哥开方算法之一:穷举法</font></h3><p>&emsp;&emsp;穷举法是理解起来最容易的算法，仰仗于计算机的高性能计算，穷举变得简单又实用，想取得运算结果，只用在结果区间里用步进验证来获取最终正确的结果。开方也能这样来算，首先获取到开方数所在的区间，然后按照某个精度来步进，每次步进验证是否为期望的结果，直到得到当前精度下正确的值，下图为逻辑流程图。(ps:<font color=red>为了获得更高的精度，下面的开方都用double数据类型</font>)</p>
+<p><div id="flowchart-0" class="flow-chart"></div><br>代码如下所示:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</div><div class="line"> * Description:</div><div class="line"> *</div><div class="line"> * <span class="doctag">@author</span>:</div><div class="line"> * <span class="doctag">@date</span>: 2019/1/12</div><div class="line"> * <span class="doctag">@param</span>:[待开数, 小数位数]</div><div class="line"> * <span class="doctag">@return</span>:double</div><div class="line"> */</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">getSqrtByExhaustion</span><span class="params">(<span class="keyword">double</span> source, <span class="keyword">int</span> depth)</span> </span>&#123;</div><div class="line">	<span class="comment">//只有不小于0的数才能被开平方</span></div><div class="line">	<span class="keyword">if</span> (source &lt; <span class="number">0</span>) &#123;</div><div class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"被开平方数必须大于0"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//获取精度,例如精度0.01,则计算时需精确到0.001后四舍五入</span></div><div class="line">	<span class="keyword">int</span> dp = <span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; depth + <span class="number">1</span>; i++) &#123;</div><div class="line">		dp *= <span class="number">10</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">double</span> result = <span class="number">0</span>;</div><div class="line">	<span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">		<span class="comment">//步进循环,穷举出期望结果</span></div><div class="line">		result += <span class="number">1.0</span> / dp;</div><div class="line">		<span class="comment">//如果result * result &gt; source,说明期望结果在前一次循环和这次循环之间</span></div><div class="line">		<span class="keyword">if</span> (result * result &gt; source) &#123;</div><div class="line">			result -= <span class="number">1.0</span> / dp;</div><div class="line">			<span class="keyword">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">       <span class="comment">//返回四舍五入后的结果</span></div><div class="line">	<span class="keyword">return</span> Math.round(result * dp / <span class="number">10</span>) * <span class="number">10.0</span> / dp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/01/11/开给一个数开N次方/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+	<div>
+
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/11/面试题部分答案/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1471,167 +1656,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/4. 高频面试题-设计模式/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="YC"/>
-      <meta itemprop="description" content=""/>
-      <meta itemprop="image" content="/images/avatar.gif"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="驰哥哥教你学Java"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/10/4. 高频面试题-设计模式/" class="post-title-link" itemprop="url">高频面试题-设计模式</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-01-10 20:57:13 / 修改时间：23:48:25" itemprop="dateCreated datePublished" datetime="2019-01-10T20:57:13+08:00">2019-01-10</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><meta name="referrer" content="no-referrer" /></p>
-<h2 id="高频面试题-设计模式"><a href="#高频面试题-设计模式" class="headerlink" title="高频面试题-设计模式"></a>高频面试题-设计模式</h2><p>(1) 常见的设计模式  </p>
-<ul>
-<li>软件设计模式的分类<ul>
-<li>创建型:创建对象时，不再由我们直接实例化对象,工厂方法、抽象工厂模式、单例模式</li>
-<li>结构型:用于帮助将多个对象组织成更大的结构,适配器模式,装饰器模式、门面模式、亨元模式和代理模式</li>
-<li>行为型:用于帮助系统间各对象的通信，以及如何控制复杂系统中流程,命令模式、观察者模式、策略模式</li>
-</ul>
-</li>
-</ul>
-<p>(2) 设计模式的的六大原则及其含义<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/01/10/4. 高频面试题-设计模式/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-	<div>
-
-</div>
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1679,7 +1703,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1696,7 +1720,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   
                 </div>
@@ -1711,7 +1737,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

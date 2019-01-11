@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
     <title>驰哥哥简易拼图</title>
 
     <style>
@@ -15,14 +15,16 @@
 
 <body>
 <!--<img src="0.jpg" width="120" STYLE="display: inline">-->
-<div id="game" align="center" @keydown.up="up" @keydown.down="down" @keydown.left="left" @keydown.right="right" @keydown.space="space">
+<div id="game" align="center" @keydown.up="up" @keydown.down="down" @keydown.left="left" @keydown.right="right"
+     @keydown.space="space">
     <h1 style="color: gray">驰哥哥简易拼图</h1>
     <br>
     <a id="more"></a>
     <button ref="button">
         <table border="1" cellspacing="0" cellpadding="0" width="600px" id="table" align="center">
             <tr v-for="index in [0,1,2]" align="center">
-                <td v-for="item in arr.slice(index*3,index*3+3)" height="200px" :class="item!=null?'itemNotNull':''" align="center">
+                <td v-for="item in arr.slice(index*3,index*3+3)" height="200px" :class="item!=null?'itemNotNull':''"
+                    align="center" >
                     <img :src="'/imgs/'+item+'.png'" height="200" alt="" @click="click(item)">
                 </td>
             </tr>

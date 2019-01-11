@@ -608,7 +608,7 @@ var formatComponentName = (noop);
 
   formatComponentName = function (vm, includeFile) {
     if (vm.$root === vm) {
-      return '<root>'
+      return '<Root>'
     }
     var options = typeof vm === 'function' && vm.cid != null
       ? vm.options
@@ -623,7 +623,7 @@ var formatComponentName = (noop);
     }
 
     return (
-      (name ? ("<" +="" (classify(name))="" "="">") : "<anonymous>") +
+      (name ? ("<" + (classify(name)) + ">") : "<Anonymous>") +
       (file && includeFile !== false ? (" at " + file) : '')
     )
   };
@@ -2178,7 +2178,7 @@ function checkProp (
 // statically analyzing the template at compile time.
 //
 // For plain HTML markup, normalization can be completely skipped because the
-// generated render function is guaranteed to return Array<vnode>. There are
+// generated render function is guaranteed to return Array<VNode>. There are
 // two cases where extra normalization is needed:
 
 // 1. When the children contains components - because a functional component
@@ -5457,7 +5457,103 @@ function sameInputType (a, b) {
 function createKeyToOldIdx (children, beginIdx, endIdx) {
   var i, key;
   var map = {};
-  for (i = beginIdx; i <= endidx;="" ++i)="" {="" key="children[i].key;" if="" (isdef(key))="" map[key]="i;" }="" return="" map="" function="" createpatchfunction="" (backend)="" var="" i,="" j;="" cbs="{};" modules="backend.modules;" nodeops="backend.nodeOps;" for="" (i="0;" i="" <="" hooks.length;="" cbs[hooks[i]]="[];" (j="0;" j="" modules.length;="" ++j)="" (isdef(modules[j][hooks[i]]))="" cbs[hooks[i]].push(modules[j][hooks[i]]);="" emptynodeat="" (elm)="" new="" vnode(nodeops.tagname(elm).tolowercase(),="" {},="" [],="" undefined,="" elm)="" creatermcb="" (childelm,="" listeners)="" remove="" ()="" (--remove.listeners="==" 0)="" removenode(childelm);="" remove.listeners="listeners;" removenode="" (el)="" parent="nodeOps.parentNode(el);" element="" may="" have="" already="" been="" removed="" due="" to="" v-html="" v-text="" (isdef(parent))="" nodeops.removechild(parent,="" el);="" isunknownelement$$1="" (vnode,="" invpre)="" (="" !invpre="" &&="" !vnode.ns="" !(="" config.ignoredelements.length="" config.ignoredelements.some(function="" (ignore)="" isregexp(ignore)="" ?="" ignore.test(vnode.tag)="" :="" ignore="==" vnode.tag="" })="" )="" config.isunknownelement(vnode.tag)="" creatingelminvpre="0;" createelm="" vnode,="" insertedvnodequeue,="" parentelm,="" refelm,="" nested,="" ownerarray,="" index="" (isdef(vnode.elm)="" isdef(ownerarray))="" this="" vnode="" was="" used="" in="" a="" previous="" render!="" now="" it's="" as="" node,="" overwriting="" its="" elm="" would="" cause="" potential="" patch="" errors="" down="" the="" road="" when="" an="" insertion="" reference="" node.="" instead,="" we="" clone="" node="" on-demand="" before="" creating="" associated="" dom="" it.="" =="" clonevnode(vnode);="" vnode.isrootinsert="!nested;" transition="" enter="" check="" (createcomponent(vnode,="" refelm))="" data="vnode.data;" children="vnode.children;" tag="vnode.tag;" (isdef(tag))="" (data="" data.pre)="" creatingelminvpre++;="" (isunknownelement$$1(vnode,="" creatingelminvpre))="" warn(="" 'unknown="" custom="" element:="" <'="" +="" '=""> - did you ' +
+  for (i = beginIdx; i <= endIdx; ++i) {
+    key = children[i].key;
+    if (isDef(key)) { map[key] = i; }
+  }
+  return map
+}
+
+function createPatchFunction (backend) {
+  var i, j;
+  var cbs = {};
+
+  var modules = backend.modules;
+  var nodeOps = backend.nodeOps;
+
+  for (i = 0; i < hooks.length; ++i) {
+    cbs[hooks[i]] = [];
+    for (j = 0; j < modules.length; ++j) {
+      if (isDef(modules[j][hooks[i]])) {
+        cbs[hooks[i]].push(modules[j][hooks[i]]);
+      }
+    }
+  }
+
+  function emptyNodeAt (elm) {
+    return new VNode(nodeOps.tagName(elm).toLowerCase(), {}, [], undefined, elm)
+  }
+
+  function createRmCb (childElm, listeners) {
+    function remove () {
+      if (--remove.listeners === 0) {
+        removeNode(childElm);
+      }
+    }
+    remove.listeners = listeners;
+    return remove
+  }
+
+  function removeNode (el) {
+    var parent = nodeOps.parentNode(el);
+    // element may have already been removed due to v-html / v-text
+    if (isDef(parent)) {
+      nodeOps.removeChild(parent, el);
+    }
+  }
+
+  function isUnknownElement$$1 (vnode, inVPre) {
+    return (
+      !inVPre &&
+      !vnode.ns &&
+      !(
+        config.ignoredElements.length &&
+        config.ignoredElements.some(function (ignore) {
+          return isRegExp(ignore)
+            ? ignore.test(vnode.tag)
+            : ignore === vnode.tag
+        })
+      ) &&
+      config.isUnknownElement(vnode.tag)
+    )
+  }
+
+  var creatingElmInVPre = 0;
+
+  function createElm (
+    vnode,
+    insertedVnodeQueue,
+    parentElm,
+    refElm,
+    nested,
+    ownerArray,
+    index
+  ) {
+    if (isDef(vnode.elm) && isDef(ownerArray)) {
+      // This vnode was used in a previous render!
+      // now it's used as a new node, overwriting its elm would cause
+      // potential patch errors down the road when it's used as an insertion
+      // reference node. Instead, we clone the node on-demand before creating
+      // associated DOM element for it.
+      vnode = ownerArray[index] = cloneVNode(vnode);
+    }
+
+    vnode.isRootInsert = !nested; // for transition enter check
+    if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
+      return
+    }
+
+    var data = vnode.data;
+    var children = vnode.children;
+    var tag = vnode.tag;
+    if (isDef(tag)) {
+      {
+        if (data && data.pre) {
+          creatingElmInVPre++;
+        }
+        if (isUnknownElement$$1(vnode, creatingElmInVPre)) {
+          warn(
+            'Unknown custom element: <' + tag + '> - did you ' +
             'register the component correctly? For recursive components, ' +
             'make sure to provide the "name" option.',
             vnode.context
@@ -5622,7 +5718,80 @@ function createKeyToOldIdx (children, beginIdx, endIdx) {
   }
 
   function addVnodes (parentElm, refElm, vnodes, startIdx, endIdx, insertedVnodeQueue) {
-    for (; startIdx <= endidx;="" ++startidx)="" {="" createelm(vnodes[startidx],="" insertedvnodequeue,="" parentelm,="" refelm,="" false,="" vnodes,="" startidx);="" }="" function="" invokedestroyhook="" (vnode)="" var="" i,="" j;="" data="vnode.data;" if="" (isdef(data))="" (isdef(i="data.hook)" &&="" isdef(i="i.destroy))" i(vnode);="" for="" (i="0;" i="" <="" cbs.destroy.length;="" ++i)="" cbs.destroy[i](vnode);="" (j="0;" j="" vnode.children.length;="" ++j)="" invokedestroyhook(vnode.children[j]);="" removevnodes="" (parentelm,="" startidx,="" endidx)="" (;="" startidx="" ch="vnodes[startIdx];" (isdef(ch))="" (isdef(ch.tag))="" removeandinvokeremovehook(ch);="" invokedestroyhook(ch);="" else="" text="" node="" removenode(ch.elm);="" removeandinvokeremovehook="" (vnode,="" rm)="" (isdef(rm)="" ||="" isdef(vnode.data))="" i;="" listeners="cbs.remove.length" +="" 1;="" (isdef(rm))="" we="" have="" a="" recursively="" passed="" down="" rm="" callback="" increase="" the="" count="" rm.listeners="" directly="" removing="" listeners);="" invoke="" hooks="" on="" child="" component="" root="" isdef(i.data))="" removeandinvokeremovehook(i,="" rm);="" cbs.remove.length;="" cbs.remove[i](vnode,="" i(vnode,="" rm();="" removenode(vnode.elm);="" updatechildren="" oldch,="" newch,="" removeonly)="" oldstartidx="0;" newstartidx="0;" oldendidx="oldCh.length" -="" oldstartvnode="oldCh[0];" oldendvnode="oldCh[oldEndIdx];" newendidx="newCh.length" newstartvnode="newCh[0];" newendvnode="newCh[newEndIdx];" oldkeytoidx,="" idxinold,="" vnodetomove,="" refelm;="" removeonly="" is="" special="" flag="" used="" only="" by="" <transition-group="">
+    for (; startIdx <= endIdx; ++startIdx) {
+      createElm(vnodes[startIdx], insertedVnodeQueue, parentElm, refElm, false, vnodes, startIdx);
+    }
+  }
+
+  function invokeDestroyHook (vnode) {
+    var i, j;
+    var data = vnode.data;
+    if (isDef(data)) {
+      if (isDef(i = data.hook) && isDef(i = i.destroy)) { i(vnode); }
+      for (i = 0; i < cbs.destroy.length; ++i) { cbs.destroy[i](vnode); }
+    }
+    if (isDef(i = vnode.children)) {
+      for (j = 0; j < vnode.children.length; ++j) {
+        invokeDestroyHook(vnode.children[j]);
+      }
+    }
+  }
+
+  function removeVnodes (parentElm, vnodes, startIdx, endIdx) {
+    for (; startIdx <= endIdx; ++startIdx) {
+      var ch = vnodes[startIdx];
+      if (isDef(ch)) {
+        if (isDef(ch.tag)) {
+          removeAndInvokeRemoveHook(ch);
+          invokeDestroyHook(ch);
+        } else { // Text node
+          removeNode(ch.elm);
+        }
+      }
+    }
+  }
+
+  function removeAndInvokeRemoveHook (vnode, rm) {
+    if (isDef(rm) || isDef(vnode.data)) {
+      var i;
+      var listeners = cbs.remove.length + 1;
+      if (isDef(rm)) {
+        // we have a recursively passed down rm callback
+        // increase the listeners count
+        rm.listeners += listeners;
+      } else {
+        // directly removing
+        rm = createRmCb(vnode.elm, listeners);
+      }
+      // recursively invoke hooks on child component root node
+      if (isDef(i = vnode.componentInstance) && isDef(i = i._vnode) && isDef(i.data)) {
+        removeAndInvokeRemoveHook(i, rm);
+      }
+      for (i = 0; i < cbs.remove.length; ++i) {
+        cbs.remove[i](vnode, rm);
+      }
+      if (isDef(i = vnode.data.hook) && isDef(i = i.remove)) {
+        i(vnode, rm);
+      } else {
+        rm();
+      }
+    } else {
+      removeNode(vnode.elm);
+    }
+  }
+
+  function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
+    var oldStartIdx = 0;
+    var newStartIdx = 0;
+    var oldEndIdx = oldCh.length - 1;
+    var oldStartVnode = oldCh[0];
+    var oldEndVnode = oldCh[oldEndIdx];
+    var newEndIdx = newCh.length - 1;
+    var newStartVnode = newCh[0];
+    var newEndVnode = newCh[newEndIdx];
+    var oldKeyToIdx, idxInOld, vnodeToMove, refElm;
+
+    // removeOnly is a special flag used only by <transition-group>
     // to ensure removed elements stay in correct relative positions
     // during leaving transitions
     var canMove = !removeOnly;
@@ -5631,7 +5800,51 @@ function createKeyToOldIdx (children, beginIdx, endIdx) {
       checkDuplicateKeys(newCh);
     }
 
-    while (oldStartIdx <= oldendidx="" &&="" newstartidx="" <="newEndIdx)" {="" if="" (isundef(oldstartvnode))="" oldstartvnode="oldCh[++oldStartIdx];" vnode="" has="" been="" moved="" left="" }="" else="" (isundef(oldendvnode))="" oldendvnode="oldCh[--oldEndIdx];" (samevnode(oldstartvnode,="" newstartvnode))="" patchvnode(oldstartvnode,="" newstartvnode,="" insertedvnodequeue);="" newstartvnode="newCh[++newStartIdx];" (samevnode(oldendvnode,="" newendvnode))="" patchvnode(oldendvnode,="" newendvnode,="" newendvnode="newCh[--newEndIdx];" right="" canmove="" nodeops.insertbefore(parentelm,="" oldstartvnode.elm,="" nodeops.nextsibling(oldendvnode.elm));="" oldendvnode.elm,="" oldstartvnode.elm);="" (isundef(oldkeytoidx))="" oldkeytoidx="createKeyToOldIdx(oldCh," oldstartidx,="" oldendidx);="" idxinold="isDef(newStartVnode.key)" ?="" oldkeytoidx[newstartvnode.key]="" :="" findidxinold(newstartvnode,="" oldch,="" (isundef(idxinold))="" new="" element="" createelm(newstartvnode,="" insertedvnodequeue,="" parentelm,="" false,="" newch,="" newstartidx);="" vnodetomove="oldCh[idxInOld];" (samevnode(vnodetomove,="" patchvnode(vnodetomove,="" oldch[idxinold]="undefined;" vnodetomove.elm,="" same="" key="" but="" different="" element.="" treat="" as="" (oldstartidx=""> oldEndIdx) {
+    while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+      if (isUndef(oldStartVnode)) {
+        oldStartVnode = oldCh[++oldStartIdx]; // Vnode has been moved left
+      } else if (isUndef(oldEndVnode)) {
+        oldEndVnode = oldCh[--oldEndIdx];
+      } else if (sameVnode(oldStartVnode, newStartVnode)) {
+        patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue);
+        oldStartVnode = oldCh[++oldStartIdx];
+        newStartVnode = newCh[++newStartIdx];
+      } else if (sameVnode(oldEndVnode, newEndVnode)) {
+        patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue);
+        oldEndVnode = oldCh[--oldEndIdx];
+        newEndVnode = newCh[--newEndIdx];
+      } else if (sameVnode(oldStartVnode, newEndVnode)) { // Vnode moved right
+        patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue);
+        canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm));
+        oldStartVnode = oldCh[++oldStartIdx];
+        newEndVnode = newCh[--newEndIdx];
+      } else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left
+        patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue);
+        canMove && nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm);
+        oldEndVnode = oldCh[--oldEndIdx];
+        newStartVnode = newCh[++newStartIdx];
+      } else {
+        if (isUndef(oldKeyToIdx)) { oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx); }
+        idxInOld = isDef(newStartVnode.key)
+          ? oldKeyToIdx[newStartVnode.key]
+          : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx);
+        if (isUndef(idxInOld)) { // New element
+          createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx);
+        } else {
+          vnodeToMove = oldCh[idxInOld];
+          if (sameVnode(vnodeToMove, newStartVnode)) {
+            patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue);
+            oldCh[idxInOld] = undefined;
+            canMove && nodeOps.insertBefore(parentElm, vnodeToMove.elm, oldStartVnode.elm);
+          } else {
+            // same key but different element. treat as new element
+            createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx);
+          }
+        }
+        newStartVnode = newCh[++newStartIdx];
+      }
+    }
+    if (oldStartIdx > oldEndIdx) {
       refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm;
       addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue);
     } else if (newStartIdx > newEndIdx) {
@@ -6654,7 +6867,7 @@ function model (
     // value will throw an error.
     if (tag === 'input' && type === 'file') {
       warn$1(
-        "<" +="" (el.tag)="" "="" v-model="\""" value="" "\"="" type="\"file\"">:\n" +
+        "<" + (el.tag) + " v-model=\"" + value + "\" type=\"file\">:\n" +
         "File inputs are read only. Use a v-on:change listener instead."
       );
     }
@@ -6678,7 +6891,7 @@ function model (
     return false
   } else {
     warn$1(
-      "<" +="" (el.tag)="" "="" v-model="\""" value="" "\"="">: " +
+      "<" + (el.tag) + " v-model=\"" + value + "\">: " +
       "v-model is not supported on this element type. " +
       'If you are working with contenteditable, it\'s recommended to ' +
       'wrap a library dedicated for that purpose inside a custom component.'
@@ -6713,7 +6926,8 @@ function genCheckboxModel (
     'if(Array.isArray($$a)){' +
       "var $$v=" + (number ? '_n(' + valueBinding + ')' : valueBinding) + "," +
           '$$i=_i($$a,$$v);' +
-      "if($$el.checked){$$i<0&&(" +="" (genassignmentcode(value,="" '$$a.concat([$$v])'))="" ")}"="" "else{$$i="">-1&&(" + (genAssignmentCode(value, '$$a.slice(0,$$i).concat($$a.slice($$i+1))')) + ")}" +
+      "if($$el.checked){$$i<0&&(" + (genAssignmentCode(value, '$$a.concat([$$v])')) + ")}" +
+      "else{$$i>-1&&(" + (genAssignmentCode(value, '$$a.slice(0,$$i).concat($$a.slice($$i+1))')) + ")}" +
     "}else{" + (genAssignmentCode(value, '$$c')) + "}",
     null, true
   );
@@ -6911,7 +7125,82 @@ function updateDOMProps (oldVnode, vnode) {
     if (key === 'textContent' || key === 'innerHTML') {
       if (vnode.children) { vnode.children.length = 0; }
       if (cur === oldProps[key]) { continue }
-      // #6601 work around Chrome version <= 55="" bug="" where="" single="" textnode="" replaced="" by="" innerhtml="" textcontent="" retains="" its="" parentnode="" property="" if="" (elm.childnodes.length="==" 1)="" {="" elm.removechild(elm.childnodes[0]);="" }="" (key="==" 'value')="" store="" value="" as="" _value="" well="" since="" non-string="" values="" will="" be="" stringified="" elm._value="cur;" avoid="" resetting="" cursor="" position="" when="" is="" the="" same="" var="" strcur="isUndef(cur)" ?="" ''="" :="" string(cur);="" (shouldupdatevalue(elm,="" strcur))="" elm.value="strCur;" else="" elm[key]="cur;" check="" platforms="" web="" util="" attrs.js="" acceptvalue="" function="" shouldupdatevalue="" (elm,="" checkval)="" return="" (!elm.composing="" &&="" (="" elm.tagname="==" 'option'="" ||="" isnotinfocusanddirty(elm,="" isdirtywithmodifiers(elm,="" ))="" isnotinfocusanddirty="" true="" textbox="" (.number="" and="" .trim)="" loses="" focus="" not="" equal="" to="" updated="" notinfocus="true;" #6157="" work="" around="" ie="" accessing="" document.activeelement="" in="" an="" iframe="" try="" !="=" elm;="" catch="" (e)="" {}="" checkval="" isdirtywithmodifiers="" newval)="" modifiers="elm._vModifiers;" injected="" v-model="" runtime="" (isdef(modifiers))="" (modifiers.lazy)="" inputs="" with="" lazy="" should="" only="" false="" (modifiers.number)="" tonumber(value)="" tonumber(newval)="" (modifiers.trim)="" value.trim()="" newval.trim()="" newval="" domprops="{" create:="" updatedomprops,="" update:="" updatedomprops="" *="" parsestyletext="cached(function" (csstext)="" res="{};" listdelimiter="/;(?![^(]*\))/g;" propertydelimiter="/:(.+)/;" csstext.split(listdelimiter).foreach(function="" (item)="" tmp="item.split(propertyDelimiter);" tmp.length=""> 1 && (res[tmp[0].trim()] = tmp[1].trim());
+      // #6601 work around Chrome version <= 55 bug where single textNode
+      // replaced by innerHTML/textContent retains its parentNode property
+      if (elm.childNodes.length === 1) {
+        elm.removeChild(elm.childNodes[0]);
+      }
+    }
+
+    if (key === 'value') {
+      // store value as _value as well since
+      // non-string values will be stringified
+      elm._value = cur;
+      // avoid resetting cursor position when value is the same
+      var strCur = isUndef(cur) ? '' : String(cur);
+      if (shouldUpdateValue(elm, strCur)) {
+        elm.value = strCur;
+      }
+    } else {
+      elm[key] = cur;
+    }
+  }
+}
+
+// check platforms/web/util/attrs.js acceptValue
+
+
+function shouldUpdateValue (elm, checkVal) {
+  return (!elm.composing && (
+    elm.tagName === 'OPTION' ||
+    isNotInFocusAndDirty(elm, checkVal) ||
+    isDirtyWithModifiers(elm, checkVal)
+  ))
+}
+
+function isNotInFocusAndDirty (elm, checkVal) {
+  // return true when textbox (.number and .trim) loses focus and its value is
+  // not equal to the updated value
+  var notInFocus = true;
+  // #6157
+  // work around IE bug when accessing document.activeElement in an iframe
+  try { notInFocus = document.activeElement !== elm; } catch (e) {}
+  return notInFocus && elm.value !== checkVal
+}
+
+function isDirtyWithModifiers (elm, newVal) {
+  var value = elm.value;
+  var modifiers = elm._vModifiers; // injected by v-model runtime
+  if (isDef(modifiers)) {
+    if (modifiers.lazy) {
+      // inputs with lazy should only be updated when not in focus
+      return false
+    }
+    if (modifiers.number) {
+      return toNumber(value) !== toNumber(newVal)
+    }
+    if (modifiers.trim) {
+      return value.trim() !== newVal.trim()
+    }
+  }
+  return value !== newVal
+}
+
+var domProps = {
+  create: updateDOMProps,
+  update: updateDOMProps
+}
+
+/*  */
+
+var parseStyleText = cached(function (cssText) {
+  var res = {};
+  var listDelimiter = /;(?![^(]*\))/g;
+  var propertyDelimiter = /:(.+)/;
+  cssText.split(listDelimiter).forEach(function (item) {
+    if (item) {
+      var tmp = item.split(propertyDelimiter);
+      tmp.length > 1 && (res[tmp[0].trim()] = tmp[1].trim());
     }
   });
   return res
@@ -7726,7 +8015,7 @@ function actuallySetSelected (el, binding, vm) {
   var isMultiple = el.multiple;
   if (isMultiple && !Array.isArray(value)) {
     "development" !== 'production' && warn(
-      "<select multiple v-model="\""" +="" (binding.expression)="" "\"=""> " +
+      "<select multiple v-model=\"" + (binding.expression) + "\"> " +
       "expects an Array value for its binding, but got " + (Object.prototype.toString.call(value).slice(8, -1)),
       vm
     );
@@ -8080,7 +8369,7 @@ var TransitionGroup = {
         } else {
           var opts = c.componentOptions;
           var name = opts ? (opts.Ctor.options.name || opts.tag || '') : c.tag;
-          warn(("<transition-group> children must be keyed: <" +="" name="" "="">"));
+          warn(("<transition-group> children must be keyed: <" + name + ">"));
         }
       }
     }
@@ -8456,8 +8745,9 @@ var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'
 // but for Vue templates we can enforce a simple charset
 var ncname = '[a-zA-Z_][\\w\\-\\.]*';
 var qnameCapture = "((?:" + ncname + "\\:)?" + ncname + ")";
-var startTagOpen = new RegExp(("^<" +="" qnamecapture));="" var="" starttagclose="/^\s*(\/?)">/;
-var endTag = new RegExp(("^<\\ "="" +="" qnamecapture="" "[^="">]*>"));
+var startTagOpen = new RegExp(("^<" + qnameCapture));
+var startTagClose = /^\s*(\/?)>/;
+var endTag = new RegExp(("^<\\/" + qnameCapture + "[^>]*>"));
 var doctype = /^<!DOCTYPE [^>]+>/i;
 // #7298: escape - to avoid being pased as HTML comment when inlined in page
 var comment = /^<!\--/;
@@ -8503,7 +8793,11 @@ function parseHTML (html, options) {
     last = html;
     // Make sure we're not in a plaintext content element like script/style
     if (!lastTag || !isPlainTextElement(lastTag)) {
-      var textEnd = html.indexOf('<'); if="" (textend="==" 0)="" {="" comment:="" (comment.test(html))="" var="" commentend="html.indexOf('--">');
+      var textEnd = html.indexOf('<');
+      if (textEnd === 0) {
+        // Comment:
+        if (comment.test(html)) {
+          var commentEnd = html.indexOf('-->');
 
           if (commentEnd >= 0) {
             if (options.shouldKeepComment) {
@@ -8561,7 +8855,27 @@ function parseHTML (html, options) {
           !conditionalComment.test(rest)
         ) {
           // < in plain text, be forgiving and treat it as text
-          next = rest.indexOf('<', 1);="" if="" (next="" <="" 0)="" {="" break="" }="" textend="" +="next;" rest="html.slice(textEnd);" text="html.substring(0," textend);="" advance(textend);="" (textend="" html="" ;="" (options.chars="" &&="" text)="" options.chars(text);="" else="" var="" endtaglength="0;" stackedtag="lastTag.toLowerCase();" restackedtag="reCache[stackedTag]" ||="" (recache[stackedtag]="new" regexp('([\\s\\s]*?)(<="" '="" '[^="">]*>)', 'i'));
+          next = rest.indexOf('<', 1);
+          if (next < 0) { break }
+          textEnd += next;
+          rest = html.slice(textEnd);
+        }
+        text = html.substring(0, textEnd);
+        advance(textEnd);
+      }
+
+      if (textEnd < 0) {
+        text = html;
+        html = '';
+      }
+
+      if (options.chars && text) {
+        options.chars(text);
+      }
+    } else {
+      var endTagLength = 0;
+      var stackedTag = lastTag.toLowerCase();
+      var reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\s\\S]*?)(</' + stackedTag + '[^>]*>)', 'i'));
       var rest$1 = html.replace(reStackedTag, function (all, text, endTag) {
         endTagLength = endTag.length;
         if (!isPlainTextElement(stackedTag) && stackedTag !== 'noscript') {
@@ -8696,7 +9010,7 @@ function parseHTML (html, options) {
           options.warn
         ) {
           options.warn(
-            ("tag <" +="" (stack[i].tag)="" "=""> has no matching end tag.")
+            ("tag <" + (stack[i].tag) + "> has no matching end tag.")
           );
         }
         if (options.end) {
@@ -8840,7 +9154,7 @@ function parse (
         "development" !== 'production' && warn$2(
           'Templates should only be responsible for mapping the state to the ' +
           'UI. Avoid placing tags with side-effects in your templates, such as ' +
-          "<" +="" tag="" "="">" + ', as they will not be parsed.'
+          "<" + tag + ">" + ', as they will not be parsed.'
         );
       }
 
@@ -8873,7 +9187,7 @@ function parse (
         {
           if (el.tag === 'slot' || el.tag === 'template') {
             warnOnce(
-              "Cannot use <" +="" (el.tag)="" "=""> as component root element because it may " +
+              "Cannot use <" + (el.tag) + "> as component root element because it may " +
               'contain multiple nodes.'
             );
           }
@@ -9114,7 +9428,7 @@ function processIfConditions (el, parent) {
   } else {
     warn$2(
       "v-" + (el.elseif ? ('else-if="' + el.elseif + '"') : 'else') + " " +
-      "used on element <" +="" (el.tag)="" "=""> without corresponding v-if."
+      "used on element <" + (el.tag) + "> without corresponding v-if."
     );
   }
 }
@@ -9179,7 +9493,7 @@ function processSlot (el) {
       /* istanbul ignore if */
       if ("development" !== 'production' && el.attrsMap['v-for']) {
         warn$2(
-          "Ambiguous combined usage of slot-scope and v-for on <" +="" (el.tag)="" "=""> " +
+          "Ambiguous combined usage of slot-scope and v-for on <" + (el.tag) + "> " +
           "(v-for takes higher priority). Use a wrapper <template> for the " +
           "scoped slot to make it clearer.",
           true
@@ -9362,7 +9676,7 @@ function checkForAliasModel (el, value) {
   while (_el) {
     if (_el.for && _el.alias === value) {
       warn$2(
-        "<" +="" (el.tag)="" "="" v-model="\""" value="" "\"="">: " +
+        "<" + (el.tag) + " v-model=\"" + value + "\">: " +
         "You are binding v-model directly to a v-for iteration alias. " +
         "This will not be able to modify the v-for source array because " +
         "writing to the alias is like modifying a function local variable. " +
@@ -9382,7 +9696,7 @@ function checkForAliasModel (el, value) {
  * into this:
  *   <input v-if="type === 'checkbox'" type="checkbox" v-model="data[type]">
  *   <input v-else-if="type === 'radio'" type="radio" v-model="data[type]">
- *   <input v-else="" :type="type" v-model="data[type]">
+ *   <input v-else :type="type" v-model="data[type]">
  */
 
 function preTransformNode (el, options) {
@@ -9943,7 +10257,7 @@ function genFor (
     !el.key
   ) {
     state.warn(
-      "<" +="" (el.tag)="" "="" v-for="\""" alias="" in="" exp="" "\"="">: component lists rendered with " +
+      "<" + (el.tag) + " v-for=\"" + alias + " in " + exp + "\">: component lists rendered with " +
       "v-for should have explicit keys. " +
       "See https://vuejs.org/guide/list.html#key for more info.",
       true /* tip */
@@ -10527,7 +10841,7 @@ var compileToFunctions = ref$1.compileToFunctions;
 var div;
 function getShouldDecode (href) {
   div = div || document.createElement('div');
-  div.innerHTML = href ? "<a href="\"\n\"/">" : "<div a="\"\n\"/">";
+  div.innerHTML = href ? "<a href=\"\n\"/>" : "<div a=\"\n\"/>";
   return div.innerHTML.indexOf('&#10;') > 0
 }
 
@@ -10630,4 +10944,4 @@ Vue.compile = compileToFunctions;
 
 return Vue;
 
-})));</body></html></div></a></"></"></div></div></template></"></template></slot></"></template></"></"></"></',></');></\\></"></div></div></div></div></"></transition-group></transition></transition-group></transition></keep-alive></select></transition></transition></transition></transition></transition></=></0&&("></"></"></textarea></iframe></tbody></p></=></=></=></slot></slot></template></vnode></anonymous></"></root>
+})));
